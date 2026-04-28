@@ -82,7 +82,7 @@
 // const fileFilter = (req, file, cb) => {
 //   const allowedTypes = /pdf|xlsx|xls|csv/;
 //   const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-  
+
 //   if (extname) {
 //     return cb(null, true);
 //   } else {
@@ -175,9 +175,9 @@
 //     const workbook = XLSX.readFile(filePath);
 //     const sheetNames = workbook.SheetNames;
 //     const firstSheet = workbook.Sheets[sheetNames[0]];
-    
+
 //     const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-    
+
 //     if (jsonData.length === 0) {
 //       throw new Error('Excel file is empty');
 //     }
@@ -215,7 +215,7 @@
 // async function previewPDF(filePath) {
 //   try {
 //     const stats = fs.statSync(filePath);
-    
+
 //     return {
 //       type: 'PDF',
 //       pages: 'N/A',
@@ -266,7 +266,7 @@
 
 //     const user = result.rows[0];
 //     const validPassword = await bcrypt.compare(password, user.password);
-    
+
 //     if (!validPassword) {
 //       return res.status(401).json({ 
 //         success: false,
@@ -318,7 +318,7 @@
 //        FROM users 
 //        ORDER BY created_at DESC`
 //     );
-    
+
 //     res.json({
 //       success: true,
 //       users: result.rows
@@ -338,26 +338,26 @@
 // app.get('/api/users/:id', verifyToken, async (req, res) => {
 //   try {
 //     const { id } = req.params;
-    
+
 //     const result = await pool.query(
 //       `SELECT id, name, email, phone, role, status, created_at, updated_at,
 //               last_login, login_count
 //        FROM users WHERE id = $1`,
 //       [id]
 //     );
-    
+
 //     if (result.rows.length === 0) {
 //       return res.status(404).json({
 //         success: false,
 //         error: 'User not found'
 //       });
 //     }
-    
+
 //     res.json({
 //       success: true,
 //       user: result.rows[0]
 //     });
-    
+
 //   } catch (error) {
 //     console.error('Error getting user:', error);
 //     res.status(500).json({ 
@@ -403,15 +403,15 @@
 //        RETURNING id, name, email, phone, role, status, created_at`,
 //       [name, email, phone || null, role || 'student', hashedPassword, 'active']
 //     );
-    
+
 //     res.status(201).json({
 //       success: true,
 //       message: 'User created successfully',
 //       user: result.rows[0]
 //     });
-    
+
 //     console.log('✅ User created:', email);
-    
+
 //   } catch (error) {
 //     console.error('Error creating user:', error);
 //     res.status(500).json({ 
@@ -467,7 +467,7 @@
 //     if (password && password.trim() !== '') {
 //       const saltRounds = 10;
 //       const hashedPassword = await bcrypt.hash(password, saltRounds);
-      
+
 //       updateQuery = `
 //         UPDATE users 
 //         SET name = $1, email = $2, phone = $3, role = $4, password = $5, 
@@ -487,15 +487,15 @@
 //     }
 
 //     const result = await pool.query(updateQuery, updateValues);
-    
+
 //     res.json({
 //       success: true,
 //       message: 'User updated successfully',
 //       user: result.rows[0]
 //     });
-    
+
 //     console.log('✅ User updated:', email);
-    
+
 //   } catch (error) {
 //     console.error('Error updating user:', error);
 //     res.status(500).json({ 
@@ -511,7 +511,7 @@
 // app.delete('/api/users/:id', verifyToken, async (req, res) => {
 //   try {
 //     const { id } = req.params;
-    
+
 //     const existingUser = await pool.query(
 //       'SELECT email FROM users WHERE id = $1',
 //       [id]
@@ -534,14 +534,14 @@
 //     }
 
 //     await pool.query('DELETE FROM users WHERE id = $1', [id]);
-    
+
 //     res.json({
 //       success: true,
 //       message: 'User deleted successfully'
 //     });
-    
+
 //     console.log('✅ User deleted:', userEmail);
-    
+
 //   } catch (error) {
 //     console.error('Error deleting user:', error);
 //     res.status(500).json({ 
@@ -557,7 +557,7 @@
 // app.get('/api/users/search/:term', verifyToken, async (req, res) => {
 //   try {
 //     const { term } = req.params;
-    
+
 //     const result = await pool.query(
 //       `SELECT id, name, email, phone, role, status, created_at, updated_at,
 //               last_login, login_count
@@ -568,12 +568,12 @@
 //        ORDER BY name ASC`,
 //       [`%${term}%`]
 //     );
-    
+
 //     res.json({
 //       success: true,
 //       users: result.rows
 //     });
-    
+
 //   } catch (error) {
 //     console.error('Error searching users:', error);
 //     res.status(500).json({ 
@@ -589,7 +589,7 @@
 // app.get('/api/users/stats', verifyToken, async (req, res) => {
 //   try {
 //     const totalUsers = await pool.query('SELECT COUNT(*) as count FROM users');
-    
+
 //     const roleStats = await pool.query(`
 //       SELECT 
 //         role,
@@ -598,7 +598,7 @@
 //       GROUP BY role
 //       ORDER BY role
 //     `);
-    
+
 //     const statusStats = await pool.query(`
 //       SELECT 
 //         status,
@@ -607,20 +607,20 @@
 //       GROUP BY status
 //       ORDER BY status
 //     `);
-    
+
 //     const recentUsers = await pool.query(`
 //       SELECT COUNT(*) as count
 //       FROM users
 //       WHERE created_at >= NOW() - INTERVAL '30 days'
 //     `);
-    
+
 //     const activeUsers = await pool.query(`
 //       SELECT COUNT(*) as count
 //       FROM users
 //       WHERE last_login >= NOW() - INTERVAL '30 days'
 //         AND status = 'active'
 //     `);
-    
+
 //     res.json({
 //       success: true,
 //       stats: {
@@ -631,7 +631,7 @@
 //         active_last_30_days: parseInt(activeUsers.rows[0].count)
 //       }
 //     });
-    
+
 //   } catch (error) {
 //     console.error('Error getting user stats:', error);
 //     res.status(500).json({ 
@@ -651,7 +651,7 @@
 // app.get('/api/students', async (req, res) => {
 //   try {
 //     const result = await pool.query('SELECT * FROM students');
-    
+
 //     res.json({
 //       success: true,
 //       students: result.rows
@@ -670,13 +670,13 @@
 //  */
 // app.post('/api/students', async (req, res) => {
 //   const { student_id, name, name_en, faculty, major, admission_year } = req.body;
-  
+
 //   try {
 //     const result = await pool.query(
 //       'INSERT INTO students (student_id, name, name_en, faculty, major, admission_year) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
 //       [student_id, name, name_en, faculty, major, admission_year]
 //     );
-    
+
 //     res.json({
 //       success: true,
 //       student: result.rows[0]
@@ -702,7 +702,7 @@
 //     const result = await pool.query(
 //       'SELECT f.*, u.name as user_name FROM files f LEFT JOIN users u ON f.user_id = u.id ORDER BY f.upload_date DESC'
 //     );
-    
+
 //     res.json({
 //       success: true,
 //       files: result.rows
@@ -731,7 +731,7 @@
 //     const filePath = req.file.path;
 //     const fileExtension = path.extname(req.file.originalname).toLowerCase();
 //     const originalName = Buffer.from(req.file.originalname, 'latin1').toString('utf-8');
-    
+
 //     console.log('🔍 Previewing file:', originalName);
 
 //     let previewData = {};
@@ -791,13 +791,13 @@
 //         error: 'No file uploaded' 
 //       });
 //     }
-    
+
 //     console.log('📤 File uploaded:', req.file.originalname);
 //     const originalName = Buffer.from(req.file.originalname, 'latin1').toString('utf-8');
-    
+
 //     const allowedTypes = ['.pdf', '.xlsx', '.xls', '.csv'];
 //     const fileExtension = path.extname(originalName).toLowerCase();
-    
+
 //     if (!allowedTypes.includes(fileExtension)) {
 //       fs.unlinkSync(req.file.path);
 //       return res.status(400).json({ 
@@ -805,10 +805,10 @@
 //         error: 'File type not allowed. Only PDF, Excel, and CSV files are supported.' 
 //       });
 //     }
-    
+
 //     const fileSize = `${(req.file.size / 1024 / 1024).toFixed(2)} MB`;
 //     const fileType = path.extname(req.file.originalname).substring(1).toUpperCase();
-    
+
 //     const result = await pool.query(
 //       'INSERT INTO files (name, size, type, upload_date, user_id, status, file_path) VALUES ($1, $2, $3, NOW(), $4, $5, $6) RETURNING *',
 //       [
@@ -831,16 +831,16 @@
 //         originalName: originalName
 //       }
 //     });
-    
+
 //     console.log('✅ File saved to database with ID:', result.rows[0].id);
-    
+
 //   } catch (error) {
 //     console.error('Upload error:', error);
-    
+
 //     if (req.file && fs.existsSync(req.file.path)) {
 //       fs.unlinkSync(req.file.path);
 //     }
-    
+
 //     res.status(500).json({ 
 //       success: false,
 //       error: 'Upload failed: ' + error.message
@@ -929,21 +929,21 @@
 //     }
 
 //     const file = fileResult.rows[0];
-    
+
 //     if (file.file_path && fs.existsSync(file.file_path)) {
 //       fs.unlinkSync(file.file_path);
 //       console.log('🗑️ File deleted from disk:', file.file_path);
 //     }
-    
+
 //     await pool.query('DELETE FROM files WHERE id = $1', [req.params.id]);
-    
+
 //     res.json({
 //       success: true,
 //       message: 'File deleted successfully'
 //     });
-    
+
 //     console.log('✅ File deleted from database:', file.name);
-    
+
 //   } catch (error) {
 //     console.error('Delete error:', error);
 //     res.status(500).json({ 
@@ -969,7 +969,7 @@
 //       FROM courses 
 //       ORDER BY "year" DESC, semester ASC, course_code ASC
 //     `);
-    
+
 //     res.json({
 //       success: true,
 //       courses: result.rows
@@ -996,14 +996,14 @@
 //       FROM courses 
 //       WHERE course_id = $1
 //     `, [id]);
-    
+
 //     if (result.rows.length === 0) {
 //       return res.status(404).json({
 //         success: false,
 //         error: 'Course not found'
 //       });
 //     }
-    
+
 //     res.json({
 //       success: true,
 //       course: result.rows[0]
@@ -1068,15 +1068,15 @@
 //       ext1 || null, 
 //       ext2 || null
 //     ]);
-    
+
 //     res.status(201).json({
 //       success: true,
 //       message: 'Course created successfully',
 //       course: result.rows[0]
 //     });
-    
+
 //     console.log('✅ Course created:', course_code);
-    
+
 //   } catch (error) {
 //     console.error('Error creating course:', error);
 //     res.status(500).json({ 
@@ -1152,15 +1152,15 @@
 //       ext2 || null, 
 //       id
 //     ]);
-    
+
 //     res.json({
 //       success: true,
 //       message: 'Course updated successfully',
 //       course: result.rows[0]
 //     });
-    
+
 //     console.log('✅ Course updated:', course_code);
-    
+
 //   } catch (error) {
 //     console.error('Error updating course:', error);
 //     res.status(500).json({ 
@@ -1176,7 +1176,7 @@
 // app.delete('/api/courses/:id', verifyToken, async (req, res) => {
 //   try {
 //     const { id } = req.params;
-    
+
 //     const existingCourse = await pool.query(
 //       'SELECT course_code FROM courses WHERE course_id = $1',
 //       [id]
@@ -1192,14 +1192,14 @@
 //     const courseCode = existingCourse.rows[0].course_code;
 
 //     await pool.query('DELETE FROM courses WHERE course_id = $1', [id]);
-    
+
 //     res.json({
 //       success: true,
 //       message: 'Course deleted successfully'
 //     });
-    
+
 //     console.log('✅ Course deleted:', courseCode);
-    
+
 //   } catch (error) {
 //     console.error('Error deleting course:', error);
 //     res.status(500).json({ 
@@ -1225,7 +1225,7 @@
 //          OR LOWER(name_eng) LIKE LOWER($1)
 //       ORDER BY "year" DESC, semester ASC, course_code ASC
 //     `, [`%${term}%`]);
-    
+
 //     res.json({
 //       success: true,
 //       courses: result.rows
@@ -1281,7 +1281,7 @@
 //       LEFT JOIN courses c ON s.course_code = c.course_code
 //       ORDER BY s.academic_year DESC, s.semester ASC, s.student_id ASC
 //     `);
-    
+
 //     res.json({
 //       success: true,
 //       scores: result.rows
@@ -1368,15 +1368,15 @@
 //       final_grade || null,
 //       email || null
 //     ]);
-    
+
 //     res.status(201).json({
 //       success: true,
 //       message: 'Score created successfully',
 //       score: result.rows[0]
 //     });
-    
+
 //     console.log('✅ Score created for student:', student_id);
-    
+
 //   } catch (error) {
 //     console.error('Error creating score:', error);
 //     res.status(500).json({ 
@@ -1496,15 +1496,15 @@
 //       email || null,
 //       id
 //     ]);
-    
+
 //     res.json({
 //       success: true,
 //       message: 'Score updated successfully',
 //       score: result.rows[0]
 //     });
-    
+
 //     console.log('✅ Score updated for student:', student_id);
-    
+
 //   } catch (error) {
 //     console.error('Error updating score:', error);
 //     res.status(500).json({ 
@@ -1520,7 +1520,7 @@
 // app.delete('/api/scores/:id', verifyToken, async (req, res) => {
 //   try {
 //     const { id } = req.params;
-    
+
 //     const existingScore = await pool.query(
 //       'SELECT student_id, course_code FROM scores WHERE id = $1',
 //       [id]
@@ -1535,14 +1535,14 @@
 //     const { student_id, course_code } = existingScore.rows[0];
 
 //     await pool.query('DELETE FROM scores WHERE id = $1', [id]);
-    
+
 //     res.json({
 //       success: true,
 //       message: 'Score deleted successfully'
 //     });
-    
+
 //     console.log('✅ Score deleted for student:', student_id, 'course:', course_code);
-    
+
 //   } catch (error) {
 //     console.error('Error deleting score:', error);
 //     res.status(500).json({ 
@@ -1582,7 +1582,7 @@
 //       WHERE s.student_id = $1
 //       ORDER BY s.academic_year DESC, s.semester ASC
 //     `, [student_id]);
-    
+
 //     res.json({
 //       success: true,
 //       scores: result.rows
@@ -1602,20 +1602,20 @@
 // app.get('/api/scores/transcript/:student_id', async (req, res) => {
 //   try {
 //     const { student_id } = req.params;
-    
+
 //     // Get student info
 //     const studentInfo = await pool.query(
 //       'SELECT * FROM students WHERE student_id = $1',
 //       [student_id]
 //     );
-    
+
 //     if (studentInfo.rows.length === 0) {
 //       return res.status(404).json({
 //         success: false,
 //         error: 'Student not found'
 //       });
 //     }
-    
+
 //     // Get all scores for the student
 //     const scores = await pool.query(`
 //       SELECT 
@@ -1631,25 +1631,25 @@
 //       WHERE s.student_id = $1
 //       ORDER BY s.academic_year ASC, s.semester ASC
 //     `, [student_id]);
-    
+
 //     // Calculate GPA
 //     const totalCredits = scores.rows.reduce((sum, score) => sum + (score.credit || 0), 0);
 //     const gradePoints = {
 //       'A': 4.0, 'B+': 3.5, 'B': 3.0, 'C+': 2.5, 'C': 2.0, 'D+': 1.5, 'D': 1.0, 'F': 0.0
 //     };
-    
+
 //     let totalGradePoints = 0;
 //     let totalCreditHours = 0;
-    
+
 //     scores.rows.forEach(score => {
 //       if (score.final_grade && score.credit && gradePoints[score.final_grade] !== undefined) {
 //         totalGradePoints += gradePoints[score.final_grade] * score.credit;
 //         totalCreditHours += score.credit;
 //       }
 //     });
-    
+
 //     const gpa = totalCreditHours > 0 ? (totalGradePoints / totalCreditHours).toFixed(2) : 0;
-    
+
 //     res.json({
 //       success: true,
 //       transcript: {
@@ -1663,7 +1663,7 @@
 //         }
 //       }
 //     });
-    
+
 //   } catch (error) {
 //     console.error('Error generating transcript:', error);
 //     res.status(500).json({ 
@@ -1745,7 +1745,7 @@
 //   📍 Server URL: http://localhost:${PORT}
 //   📍 Health Check: http://localhost:${PORT}
 //   📍 API Base: http://localhost:${PORT}/api
-  
+
 //   📂 Available Endpoints:
 //   ┌─ Authentication ────────────────────
 //   │ POST /api/auth/login
@@ -1781,12 +1781,12 @@
 //   │ GET    /api/scores/student/:student_id
 //   │ GET    /api/scores/transcript/:student_id
 //   └─────────────────────────────────────
-  
+
 //   🔑 Test Accounts:
 //   • admin@ict.la / password123
 //   • staff@ict.la / password123
 //   • student@ict.la / password123
-  
+
 //   📁 File Support: PDF, Excel (.xlsx/.xls), CSV
 //   🗄️  Database: PostgreSQL
 //   🔒 Authentication: JWT Tokens
@@ -2000,8 +2000,11 @@ app.post(
   wrap(async (req, res) => {
     const { email, password } = req.body;
     const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+
     if (result.rows.length === 0) return fail(res, 401, "User not found");
     const user = result.rows[0];
+
+    // const passwrd = await bcrypt.hash(password, 10)
 
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return fail(res, 401, "Invalid password");
@@ -2251,10 +2254,13 @@ app.post(
     const fileSize = `${(req.file.size / 1024 / 1024).toFixed(2)} MB`;
     const fileType = path.extname(req.file.originalname).substring(1).toUpperCase();
 
+    const date = new Intl.DateTimeFormat("fr-CA", { year: "numeric", month: "2-digit", day: "2-digit", hour12: false, timeZone: "Asia/Bangkok" }).format(new Date());
+    const time = new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: "Asia/Bangkok" }).format(new Date());
+
     const r = await pool.query(
-      `INSERT INTO files (name, size, type, upload_date, user_id, status, file_path)
-       VALUES ($1,$2,$3,NOW(),$4,$5,$6) RETURNING *`,
-      [originalName, fileSize, fileType, req.user.id || 1, "completed", req.file.path]
+      `INSERT INTO files (name, size, type, upload_date, user_id, status, file_path , created_at )
+       VALUES ($1,$2,$3,NOW(),$4,$5,$6,$7) RETURNING *`,
+      [originalName, fileSize, fileType, req.user.id || 1, "completed", req.file.path, `${date + " " + time}`]
     );
 
     console.log("✅ File saved to database with ID:", r.rows[0].id);
@@ -2887,14 +2893,14 @@ app.get('/api/v1/transcripts/pdf/:student_id', verifyToken, async (req, res) => 
     if (!upstream.ok) {
       const text = await upstream.text().catch(() => '');
       return res.status(upstream.status).type('text/plain')
-               .send(text || `Upstream error (${upstream.status})`);
+        .send(text || `Upstream error (${upstream.status})`);
     }
 
     const ct = upstream.headers.get('content-type') || '';
     if (!ct.toLowerCase().includes('pdf')) {
       const text = await upstream.text().catch(() => '');
       return res.status(502).type('text/plain')
-               .send('Upstream returned non-PDF content:\n' + text.slice(0, 500));
+        .send('Upstream returned non-PDF content:\n' + text.slice(0, 500));
     }
 
     const fallbackName = `transcript_${student_id}.pdf`;
