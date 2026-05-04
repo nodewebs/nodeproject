@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, AlertCircle, Database } from 'lucide-react';
 import logo from '../assets/IICT.png'; 
+import logimg from "../assets/LTC-logo-sign.png";
 import axios from 'axios';
 
 const Login = ({ onLogin }) => {
@@ -42,8 +43,10 @@ const Login = ({ onLogin }) => {
               <img src={logo} alt="Logo" className="w-28 h-28 object-contain" />
             </div> */}
 
-            <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-white mb-4 border-3 border-gray-200 shadow-lg overflow-hidden">
-              <img src={logo} alt="Logo" className="w-full h-full object-cover rounded-full" />
+            <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-white mb-4 border-3 border-gray-200 shadow-lg overflow-hidden p-4">
+              {/* <img src={logo} alt="Logo" className="w-full h-full object-cover rounded-full" /> */}
+              <img src={logimg} alt="Logo" className="w-89  h-90  object-cover " />
+          
             </div>
 
 
