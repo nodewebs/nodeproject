@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Lock, AlertCircle, Database } from 'lucide-react';
-import logo from '../assets/IICT.png'; 
+import logo from '../assets/IICT.png';
 import logimg from "../assets/LTC-logo-sign.png";
 import axios from 'axios';
 
@@ -14,7 +14,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
+
     try {
       console.log(email, password);
       // await onLogin(email, password);
@@ -25,13 +25,13 @@ const Login = ({ onLogin }) => {
         localStorage.setItem('user', JSON.stringify(data.data.user));
         // window.location.href = '/dashboard';
       }
-      await onLogin(email, password , data.data.user.role , data.data.user.name ,data.data.user.id);
+      await onLogin(email, password, data.data.user.role, data.data.user.name, data.data.user.id);
       console.log(data.status);
     } catch (err) {
       setError('ອີເມວ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ');
       console.error('Login error:', err);
-    } 
-    
+    }
+
   };
 
   return (
@@ -43,10 +43,13 @@ const Login = ({ onLogin }) => {
               <img src={logo} alt="Logo" className="w-28 h-28 object-contain" />
             </div> */}
 
-            <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-white mb-4 border-3 border-gray-200 shadow-lg overflow-hidden p-4">
-              {/* <img src={logo} alt="Logo" className="w-full h-full object-cover rounded-full" /> */}
-              <img src={logimg} alt="Logo" className="w-89  h-90  object-cover " />
-          
+            <div className="flex flex-row justify-center">
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white mb-4 border-3 border-gray-200 shadow-xl overflow-hidden p-4 mr-3">
+                <img src={logimg} alt="Logo" className="w-89  h-90  object-cover " />
+              </div>
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white mb-4 border-3 border-gray-200 shadow-xl overflow-hidden p-2">
+                <img src={logo} alt="Logo" className="w-full h-full object-cover rounded-full" />
+              </div>
             </div>
 
 
