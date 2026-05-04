@@ -4,7 +4,7 @@
 // const ReportsSection = ({ files }) => {
 //   const [selectedReport, setSelectedReport] = useState('transcript');
 //   const [dateRange, setDateRange] = useState({ start: '', end: '' });
-  
+
 //   const reports = [
 //     { id: 'transcript', name: 'ໃບຄະແນນຈາກລະບົບ (Generated Transcript)', count: 245, icon: FileText, color: 'purple' },
 //     { id: 'certificate', name: 'ໃບຄະແນນ (Transcript)', count: 189, icon: BarChart3, color: 'blue' },
@@ -23,7 +23,7 @@
 //       // { id: 2, name: 'ໃບປະກາດ_IT_2024_2.pdf', date: '2024-03-14', size: '912 KB', downloads: 19 },
 //       // { id: 3, name: 'ໃບປະກາດ_CS_2024_1.pdf', date: '2024-03-13', size: '798 KB', downloads: 27 },
 //     ],
-    
+
 //   };
 
 //   const handleDownload = (file) => {
@@ -57,7 +57,7 @@
 //           const Icon = report.icon;
 //           const isSelected = selectedReport === report.id;
 //           const color = report.color;
-          
+
 //           return (
 //             <button
 //               key={report.id}
@@ -174,7 +174,7 @@
 //           </table>
 //         </div>
 
-        
+
 //       </div>
 //     </div>
 //   );
@@ -202,7 +202,7 @@
 //     setError(null);
 //     try {
 //       const token = localStorage.getItem('token');
-      
+
 //       if (!token) {
 //         throw new Error('ບໍ່ພົບ Token ການເຂົ້າສູ່ລະບົບ - ກະລຸນາເຂົ້າສູ່ລະບົບໃໝ່');
 //       }
@@ -228,7 +228,7 @@
 //       if (!response.ok) {
 //         throw new Error(data.error || `HTTP error! status: ${response.status}`);
 //       }
-      
+
 //       if (data.success) {
 //         setGrades({
 //           transcript: data.scores || []
@@ -295,11 +295,11 @@
 
 //   const handleSaveGrade = async () => {
 //     if (!editingGrade) return;
-    
+
 //     setSaving(true);
 //     try {
 //       const token = localStorage.getItem('token');
-      
+
 //       if (!token) {
 //         throw new Error('ບໍ່ພົບ Token ການເຂົ້າສູ່ລະບົບ - ກະລຸນາເຂົ້າສູ່ລະບົບໃໝ່');
 //       }
@@ -307,7 +307,7 @@
 //       // Calculate final score based on midterm and exam scores
 //       const finalScore = (editingGrade.midterm_score * 0.4) + (editingGrade.exam_score * 0.6);
 //       const finalGrade = calculateGrade(finalScore);
-      
+
 //       const updatedGrade = {
 //         ...editingGrade,
 //         final_score: finalScore,
@@ -350,7 +350,7 @@
 //       if (!response.ok) {
 //         throw new Error(data.error || `HTTP error! status: ${response.status}`);
 //       }
-      
+
 //       if (data.success) {
 //         // Update local state
 //         setGrades(prev => ({
@@ -359,7 +359,7 @@
 //             grade.id === updatedGrade.id ? updatedGrade : grade
 //           )
 //         }));
-        
+
 //         setEditingGrade(null);
 //         alert('ບັນທຶກຄະແນນສຳເລັດແລ້ວ!');
 //       } else {
@@ -421,7 +421,7 @@
 //     try {
 //       const response = await fetch('/api/scores');
 //       console.log('Connection test result:', response.status, response.statusText);
-      
+
 //       if (response.status === 401) {
 //         alert('❌ Connection OK แต่ Token หมดอายุ - กรุณา Login ใหม่');
 //       } else if (response.status === 404) {
@@ -442,7 +442,7 @@
 //       <div className="mb-6">
 //         <h2 className="text-2xl font-bold text-gray-900 mb-2">ລາຍງານ & ການດາວໂຫຼດ</h2>
 //         <p className="text-gray-600">ດາວໂຫຼດລາຍງານສະຫຼຸບ ແລະ ເອກະສານຕ່າງໆ</p>
-        
+
 //         {/* Development Notice */}
 //         <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
 //           <p className="text-sm text-blue-800">
@@ -502,7 +502,7 @@
 //           const Icon = report.icon;
 //           const isSelected = selectedReport === report.id;
 //           const color = report.color;
-          
+
 //           return (
 //             <button
 //               key={report.id}
@@ -776,7 +776,7 @@
 //                 <X className="w-5 h-5" />
 //               </button>
 //             </div>
-            
+
 //             <div className="space-y-4">
 //               <div>
 //                 <label className="block text-sm font-medium text-gray-700 mb-1">ນັກສຶກສາ</label>
@@ -789,7 +789,7 @@
 //                 <p className="text-gray-900">{editingGrade.course_name_lao}</p>
 //                 <p className="text-sm text-gray-500">{editingGrade.course_code}</p>
 //               </div>
-              
+
 //               <div>
 //                 <label className="block text-sm font-medium text-gray-700 mb-1">ຄະແນນກາງພາກ</label>
 //                 <input
@@ -803,7 +803,7 @@
 //                   disabled={saving}
 //                 />
 //               </div>
-              
+
 //               <div>
 //                 <label className="block text-sm font-medium text-gray-700 mb-1">ຄະແນນສະເໜີ</label>
 //                 <input
@@ -817,7 +817,7 @@
 //                   disabled={saving}
 //                 />
 //               </div>
-              
+
 //               <div className="bg-gray-50 rounded-lg p-3">
 //                 <div className="text-sm text-gray-600">ຄະແນນລວມຄາດຄະເນ:</div>
 //                 <div className="text-lg font-bold text-gray-900">
@@ -829,7 +829,7 @@
 //                 <div className="text-xs text-gray-500 mt-1">ກາງພາກ 40% + ສະເໜີ 60%</div>
 //               </div>
 //             </div>
-            
+
 //             <div className="flex justify-end space-x-3 mt-6">
 //               <button 
 //                 onClick={handleCancelEdit}
@@ -1585,6 +1585,7 @@ const ReportsSection = () => {
     } finally {
       setLoading(false);
     }
+    console.log(selectedReport)
   };
 
   const updateScore = async (updatedGrade) => {
@@ -1615,6 +1616,31 @@ const ReportsSection = () => {
       setSaving(false);
     }
   };
+
+  const fetchTranscript = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('Token not found. Please login again.');
+
+      const response = await fetch(`${API_BASE}/api/scores`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to fetch scores');
+
+      setGrades(data.scores || []);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+    console.log(selectedReport)
+  };
+
 
   // ================== UTILITIES ==================
   const calculateGrade = (score) => {
@@ -1650,6 +1676,8 @@ const ReportsSection = () => {
   useEffect(() => {
     if (selectedReport === 'transcript') {
       fetchScores();
+    } else if (selectedReport === "certificate") {
+      fetchScores();
     }
   }, [selectedReport]);
 
@@ -1682,7 +1710,7 @@ const ReportsSection = () => {
   const filteredGrades = grades.filter((g) => {
     if (!searchTerm) return true;
     const term = searchTerm.toLowerCase();
-  console.log(term)
+    console.log(term)
     return (
       g.student_id?.toLowerCase().includes(term) ||
       g.first_name_lao?.toLowerCase().includes(term) ||
@@ -1723,11 +1751,10 @@ const ReportsSection = () => {
             <button
               key={r.id}
               onClick={() => setSelectedReport(r.id)}
-              className={`p-4 rounded-xl border-2 transition ${
-                selectedReport === r.id
-                  ? `border-${r.color}-500 bg-${r.color}-50`
-                  : 'border-gray-200 bg-white hover:border-gray-300'
-              }`}
+              className={`p-4 rounded-xl border-2 transition ${selectedReport === r.id
+                ? `border-${r.color}-500 bg-${r.color}-50`
+                : 'border-gray-200 bg-white hover:border-gray-300'
+                }`}
             >
               <Icon className="w-6 h-6 mb-2" />
               <div className="font-medium">{r.name}</div>
@@ -1739,169 +1766,296 @@ const ReportsSection = () => {
 
       {/* Filters */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
-        <div className="flex-1">
-          <label className="text-sm">ຄົ້ນຫາ</label>
-          <div className="flex items-center border rounded px-2 py-1">
-            <Search className="w-4 h-4 text-gray-500 mr-2" />
-            <input
-              type="text"
-              placeholder="student_id, ຊື່, ວິຊາ..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-1 outline-none"
-            />
-          </div>
-        </div>
-        
+
+
+        {
+          selectedReport === "transcript" ?
+            <div className="flex-1">
+              <label className="text-sm">ຄົ້ນຫາ</label>
+              <div className="flex items-center border rounded px-2 py-1">
+                <Search className="w-4 h-4 text-gray-500 mr-2" />
+                <input
+                  type="text"
+                  placeholder="student_id, ຊື່, ວິຊາ..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="flex-1 outline-none"
+                />
+              </div>
+            </div>
+            :
+
+            selectedReport === "certificate" ?
+              <div className="flex flex-col w-full">
+                <div className='flex items-center flex-wrap bg-white rounded-lg px-2 py-3 border-2 '>
+                  <div className='flex items-center w-full max-w-[55%]'>
+                    <Search className="w-4 h-4 text-gray-500 mr-2" />
+
+                    <input
+                      type="text"
+                      placeholder="student_id, ລະຫັດວິຊາ, ວິຊາ..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="flex-1 outline-none mr-2 p-2 rounded border min-w-3xs"
+                    />
+
+                  </div>
+                  <button className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded-lg inline-flex items-center mr-3"> Fetch Transcript </button>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-800 py-2 px-4 rounded-lg inline-flex items-center">
+                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
+                    <span >Download PDF</span>
+                  </button>
+
+                </div>
+
+
+                <div className="flex flex-col bg-white mt-5 border-2 p-3 rounded-lg">
+
+
+                  <span className="font-extrabold text-gray-600"> ຂໍ້ມູນນັກສຶກສາ </span>
+                  <div className="flex items-center mt-2 mr-1" >
+                    <span className="font-medium text-gray-600">  ລະຫັດ: </span>
+                  </div>
+
+                  <div className="flex flex-row">
+
+                    <span className="font-medium text-gray-600 mr-1">ຊື່:  </span>
+                    <span className="font-medium text-gray-600">  ທ້າວ ບຸນເພັງ </span>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              :
+              <>
+              </>
+
+        }
+
+
+
       </div>
 
       {/* Error */}
-      {error && (
-        <div className="p-4 mb-6 bg-red-50 border border-red-200 rounded">
-          <AlertCircle className="w-5 h-5 text-red-600 inline mr-2" />
-          {error}
-        </div>
-      )}
+      {
+        error && (
+          <div className="p-4 mb-6 bg-red-50 border border-red-200 rounded">
+            <AlertCircle className="w-5 h-5 text-red-600 inline mr-2" />
+            {error}
+          </div>
+        )
+      }
 
       {/* Scores table */}
-      {selectedReport === 'transcript' && (
-        <div className="bg-white rounded-xl shadow p-4 overflow-x-auto">
-          {loading ? (
-            <div className="flex items-center">
-              <Loader2 className="w-5 h-5 animate-spin mr-2" /> Loading...
-            </div>
-          ) : (
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b">
-                  <th className="py-2 text-left">ລະຫັດນັກສຶກສາ</th>
-                  <th className="py-2 text-left">ຊື່-ນາມສະກຸນ</th>
-                  <th className="py-2 text-left">ວິຊາ</th>
-                  <th className="py-2 text-left">ປີຮຽນ</th>
-                  <th className="py-2 text-left">Midterm</th>
-                  <th className="py-2 text-left">Exam</th>
-                  <th className="py-2 text-left">Final</th>
-                  <th className="py-2 text-left">ຜົນສຸດທ້າຍ</th>
-                  <th className="py-2 text-left">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredGrades.map((g) => (
-                  <tr key={g.id} className="border-b">
-                    <td>{g.student_id}</td>
-                    <td>
-                      {g.first_name_lao} {g.last_name_lao}
-                    </td>
-                    <td>
-                      {g.course_code} - {g.course_name_lao || g.course_name_eng}
-                    </td>
-                    <td>
-                      {g.academic_year}/{g.score_semester}
-                    </td>
-
-                    {/* Midterm */}
-                    <td>
-                      {editingGrade?.id === g.id ? (
-                        <input
-                          type="number"
-                          value={editingGrade.midterm_score}
-                          onChange={(e) =>
-                            setEditingGrade({
-                              ...editingGrade,
-                              midterm_score: Number(e.target.value)
-                            })
-                          }
-                          className="w-16 border rounded px-1"
-                        />
-                      ) : (
-                        <>
-                          {g.midterm_score}{' '}
-                          <span
-                            className={`px-2 py-1 rounded ${gradeColor(
-                              g.midterm_grade
-                            )}`}
-                          >
-                            {g.midterm_grade}
-                          </span>
-                        </>
-                      )}
-                    </td>
-
-                    {/* Exam */}
-                    <td>
-                      {editingGrade?.id === g.id ? (
-                        <input
-                          type="number"
-                          value={editingGrade.exam_score}
-                          onChange={(e) =>
-                            setEditingGrade({
-                              ...editingGrade,
-                              exam_score: Number(e.target.value)
-                            })
-                          }
-                          className="w-16 border rounded px-1"
-                        />
-                      ) : (
-                        <>
-                          {g.exam_score}{' '}
-                          <span
-                            className={`px-2 py-1 rounded ${gradeColor(
-                              g.exam_grade
-                            )}`}
-                          >
-                            {g.exam_grade}
-                          </span>
-                        </>
-                      )}
-                    </td>
-
-                    {/* Final */}
-                    <td>{g.final_score}</td>
-                    <td>
-                      <span
-                        className={`px-2 py-1 rounded ${gradeColor(
-                          g.final_grade
-                        )}`}
-                      >
-                        {g.final_grade}
-                      </span>
-                    </td>
-
-                    {/* Actions */}
-                    <td>
-                      {editingGrade?.id === g.id ? (
-                        <div className="flex gap-2">
-                          <button
-                            onClick={handleSave}
-                            disabled={saving}
-                            className="p-1 text-green-600 hover:bg-green-100 rounded"
-                          >
-                            <Save className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={handleCancel}
-                            className="p-1 text-red-600 hover:bg-red-100 rounded"
-                          >
-                            <X className="w-4 h-4" />
-                          </button>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => handleEdit(g)}
-                          className="p-1 text-blue-600 hover:bg-blue-100 rounded"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </button>
-                      )}
-                    </td>
+      {
+        selectedReport === 'transcript' ? (
+          <div className="bg-white rounded-xl shadow p-4 overflow-x-auto">
+            {loading ? (
+              <div className="flex items-center">
+                <Loader2 className="w-5 h-5 animate-spin mr-2" /> Loading...
+              </div>
+            ) : (
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="py-2 text-left">ລະຫັດນັກສຶກສາ</th>
+                    <th className="py-2 text-left">ຊື່-ນາມສະກຸນ</th>
+                    <th className="py-2 text-left">ວິຊາ</th>
+                    <th className="py-2 text-left">ປີຮຽນ</th>
+                    <th className="py-2 text-left">Midterm</th>
+                    <th className="py-2 text-left">Exam</th>
+                    <th className="py-2 text-left">Final</th>
+                    <th className="py-2 text-left">ຜົນສຸດທ້າຍ</th>
+                    <th className="py-2 text-left">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      )}
-    </div>
+                </thead>
+                <tbody>
+                  {filteredGrades.map((g) => (
+                    <tr key={g.id} className="border-b">
+                      <td>{g.student_id}</td>
+                      <td>
+                        {g.first_name_lao} {g.last_name_lao}
+                      </td>
+                      <td>
+                        {g.course_code} - {g.course_name_lao || g.course_name_eng}
+                      </td>
+                      <td>
+                        {g.academic_year}/{g.score_semester}
+                      </td>
+
+                      {/* Midterm */}
+                      <td>
+                        {editingGrade?.id === g.id ? (
+                          <input
+                            type="number"
+                            value={editingGrade.midterm_score}
+                            onChange={(e) =>
+                              setEditingGrade({
+                                ...editingGrade,
+                                midterm_score: Number(e.target.value)
+                              })
+                            }
+                            className="w-16 border rounded px-1"
+                          />
+                        ) : (
+                          <>
+                            {g.midterm_score}{' '}
+                            <span
+                              className={`px-2 py-1 rounded ${gradeColor(
+                                g.midterm_grade
+                              )}`}
+                            >
+                              {g.midterm_grade}
+                            </span>
+                          </>
+                        )}
+                      </td>
+
+                      {/* Exam */}
+                      <td>
+                        {editingGrade?.id === g.id ? (
+                          <input
+                            type="number"
+                            value={editingGrade.exam_score}
+                            onChange={(e) =>
+                              setEditingGrade({
+                                ...editingGrade,
+                                exam_score: Number(e.target.value)
+                              })
+                            }
+                            className="w-16 border rounded px-1"
+                          />
+                        ) : (
+                          <>
+                            {g.exam_score}{' '}
+                            <span
+                              className={`px-2 py-1 rounded ${gradeColor(
+                                g.exam_grade
+                              )}`}
+                            >
+                              {g.exam_grade}
+                            </span>
+                          </>
+                        )}
+                      </td>
+
+                      {/* Final */}
+                      <td>{g.final_score}</td>
+                      <td>
+                        <span
+                          className={`px-2 py-1 rounded ${gradeColor(
+                            g.final_grade
+                          )}`}
+                        >
+                          {g.final_grade}
+                        </span>
+                      </td>
+
+                      {/* Actions */}
+                      <td>
+                        {editingGrade?.id === g.id ? (
+                          <div className="flex gap-2">
+                            <button
+                              onClick={handleSave}
+                              disabled={saving}
+                              className="p-1 text-green-600 hover:bg-green-100 rounded"
+                            >
+                              <Save className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={handleCancel}
+                              className="p-1 text-red-600 hover:bg-red-100 rounded"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleEdit(g)}
+                            className="p-1 text-blue-600 hover:bg-blue-100 rounded"
+                          >
+                            <Edit className="w-4 h-4" />
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        ) : selectedReport === "certificate" ? (
+
+          <div className="bg-white rounded-xl shadow p-4 overflow-x-auto">
+            {loading ? (
+              <div className="flex items-center">
+                <Loader2 className="w-5 h-5 animate-spin mr-2" /> Loading...
+              </div>
+            ) : (
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="py-2 text-left">ປີ/ພາກ</th>
+                    <th className="py-2 text-left">ລະຫັດວິຊາ</th>
+                    <th className="py-2 text-left">ວິຊາ</th>
+                    <th className="py-2 text-left">ໜ່ວຍກິດ</th>
+                    <th className="py-2 text-left">ຄະແນນສຸດທ້າຍ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredGrades.map((g) => (
+                    <tr key={g.id} className="border-b">
+                      <td>{g.student_id}</td>
+                      <td>
+                        {g.first_name_lao} {g.last_name_lao}
+                      </td>
+                      <td>
+                        {g.course_code} - {g.course_name_lao || g.course_name_eng}
+                      </td>
+                      <td>
+                        {g.academic_year}/{g.score_semester}
+                      </td>
+
+                      {/* Midterm */}
+                      <td>
+                        {editingGrade?.id === g.id ? (
+                          <input
+                            type="number"
+                            value={editingGrade.midterm_score}
+                            onChange={(e) =>
+                              setEditingGrade({
+                                ...editingGrade,
+                                midterm_score: Number(e.target.value)
+                              })
+                            }
+                            className="w-16 border rounded px-1"
+                          />
+                        ) : (
+                          <>
+                            {g.midterm_score}{' '}
+                            <span
+                              className={`px-2 py-1 rounded ${gradeColor(
+                                g.midterm_grade
+                              )}`}
+                            >
+                              {g.midterm_grade}
+                            </span>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+
+        ) :
+          <></>
+      }
+    </div >
   );
 };
 
