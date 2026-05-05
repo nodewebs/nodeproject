@@ -1557,6 +1557,7 @@ const ReportsSection = () => {
   const [selectedReport, setSelectedReport] = useState('transcript');
   const [dateRange, setDateRange] = useState({ start: '', end: '' });
   const [grades, setGrades] = useState([]);
+  const [certificate, setcertificate] = useState([]);
   const [editingGrade, setEditingGrade] = useState(null);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -1625,14 +1626,18 @@ const ReportsSection = () => {
       const token = localStorage.getItem('token');
       if (!token) throw new Error('Token not found. Please login again.');
 
-      const response = await fetch(`${API_BASE}/api/scores`, {
+      if (searchTerm == '') {
+        return setcertificate([]);
+      }
+
+      const response = await fetch(`${API_BASE}/api/scores/student/${searchTerm}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Failed to fetch scores');
 
-      setGrades(data.scores || []);
+      setcertificate(data.scores || []);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -1721,6 +1726,34 @@ const ReportsSection = () => {
     );
   });
 
+
+  // ==================  DATA ==================
+
+  const cerfiticatecreditSum = () => {
+
+    try {
+
+      let scores_credit = 0;
+      if (certificate.length > 0) {
+        for (var i = 0; i < certificate.length; i++) {
+          if (certificate[i].credit != null) {
+
+            scores_credit = parseInt(scores_credit) + parseInt(certificate[i].credit);
+
+          }
+
+
+        }
+
+      }
+      return scores_credit;
+
+    } catch (error) {
+      return 0;
+    }
+
+  }
+
   // ================== UI ==================
   const reports = [
     {
@@ -1733,7 +1766,7 @@ const ReportsSection = () => {
     {
       id: 'certificate',
       name: 'ໃບຄະແນນ (Transcript)',
-      count: 0,
+      count: certificate.length,
       icon: BarChart3,
       color: 'blue'
     }
@@ -1787,10 +1820,8 @@ const ReportsSection = () => {
 
             selectedReport === "certificate" ?
               <div className="flex flex-col w-full">
-                <div className='flex items-center flex-wrap bg-white rounded-lg px-2 py-3 border-2 '>
+                <div className='flex items-center flex-wrap bg-white rounded-lg px-3 py-5 border-2 '>
                   <div className='flex items-center w-full max-w-[55%]'>
-                    <Search className="w-4 h-4 text-gray-500 mr-2" />
-
                     <input
                       type="text"
                       placeholder="student_id, ລະຫັດວິຊາ, ວິຊາ..."
@@ -1800,7 +1831,7 @@ const ReportsSection = () => {
                     />
 
                   </div>
-                  <button className="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded-lg inline-flex items-center mr-3"> Fetch Transcript </button>
+                  <button className="bg-gray-300 hover:bg-gray-400 text-gray-500 font-bold py-2 px-4 rounded-lg inline-flex items-center mr-3" onClick={fetchTranscript}> Fetch Transcript </button>
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-800 py-2 px-4 rounded-lg inline-flex items-center">
                     <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
                     <span >Download PDF</span>
@@ -1814,13 +1845,20 @@ const ReportsSection = () => {
 
                   <span className="font-extrabold text-gray-600"> ຂໍ້ມູນນັກສຶກສາ </span>
                   <div className="flex items-center mt-2 mr-1" >
-                    <span className="font-medium text-gray-600">  ລະຫັດ: </span>
+                    <span className="font-medium text-gray-600 mr-2">  ລະຫັດ: </span>
+                    <span className="text-gray-600"> {certificate.length > 0 ? certificate[0] ? certificate[0].student_id ? certificate[0].student_id : "" : "" : ""} </span>
                   </div>
 
                   <div className="flex flex-row">
 
                     <span className="font-medium text-gray-600 mr-1">ຊື່:  </span>
-                    <span className="font-medium text-gray-600">  ທ້າວ ບຸນເພັງ </span>
+
+                    <div className="flex items-center">
+
+                      <span className="font-medium text-gray-600 mr-1">  {certificate.length > 0 ? certificate[0] ? certificate[0].first_name_lao ? certificate[0].first_name_lao : "" : "" : ""} </span>
+                      <span className="font-medium text-gray-600">  {certificate.length > 0 ? certificate[0] ? certificate[0].last_name_lao ? certificate[0].last_name_lao : "" : "" : ""} </span>
+
+                    </div>
                   </div>
 
                 </div>
@@ -1988,68 +2026,70 @@ const ReportsSection = () => {
           </div>
         ) : selectedReport === "certificate" ? (
 
-          <div className="bg-white rounded-xl shadow p-4 overflow-x-auto">
-            {loading ? (
-              <div className="flex items-center">
-                <Loader2 className="w-5 h-5 animate-spin mr-2" /> Loading...
-              </div>
-            ) : (
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="py-2 text-left">ປີ/ພາກ</th>
-                    <th className="py-2 text-left">ລະຫັດວິຊາ</th>
-                    <th className="py-2 text-left">ວິຊາ</th>
-                    <th className="py-2 text-left">ໜ່ວຍກິດ</th>
-                    <th className="py-2 text-left">ຄະແນນສຸດທ້າຍ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredGrades.map((g) => (
-                    <tr key={g.id} className="border-b">
-                      <td>{g.student_id}</td>
-                      <td>
-                        {g.first_name_lao} {g.last_name_lao}
-                      </td>
-                      <td>
-                        {g.course_code} - {g.course_name_lao || g.course_name_eng}
-                      </td>
-                      <td>
-                        {g.academic_year}/{g.score_semester}
-                      </td>
+          <div className="  flex flex-col">
 
-                      {/* Midterm */}
-                      <td>
-                        {editingGrade?.id === g.id ? (
-                          <input
-                            type="number"
-                            value={editingGrade.midterm_score}
-                            onChange={(e) =>
-                              setEditingGrade({
-                                ...editingGrade,
-                                midterm_score: Number(e.target.value)
-                              })
-                            }
-                            className="w-16 border rounded px-1"
-                          />
-                        ) : (
-                          <>
-                            {g.midterm_score}{' '}
-                            <span
-                              className={`px-2 py-1 rounded ${gradeColor(
-                                g.midterm_grade
-                              )}`}
-                            >
-                              {g.midterm_grade}
-                            </span>
-                          </>
-                        )}
-                      </td>
+            <div className="bg-white rounded-xl shadow overflow-x-auto w-full p-4  border-2 ">
+
+              {loading ? (
+                <div className="flex items-center">
+                  <Loader2 className="w-5 h-5 animate-spin mr-2" /> Loading...
+                </div>
+              ) : (
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="py-2 text-left bg-gray-100">ປີ/ພາກ</th>
+                      <th className="py-2 text-left bg-gray-100">ລະຫັດວິຊາ</th>
+                      <th className="py-2 text-left bg-gray-100">ວິຊາ</th>
+                      <th className="py-2 text-left bg-gray-100">ໜ່ວຍກິດ</th>
+                      <th className="py-2 text-left bg-gray-100">ຄະແນນສຸດທ້າຍ</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+                  </thead>
+                  <tbody>
+                    {certificate.map((g) => (
+                      <tr key={g.id} className="border-b">
+                        <td className="py-2">  {g.academic_year}/{g.semester} </td>
+                        <td>
+                          {g.course_code}
+                        </td>
+                        <td>
+                          {g.course_name_lao || g.course_name_eng}
+                        </td>
+                        <td>
+                          {g.credit}
+                        </td>
+
+                        {/* Midterm */}
+                        <td>
+                          {g.final_grade}
+
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+
+            <div className="bg-white w-full mt-5 rounded-xl border-2 p-3 flex flex-col h-[100px] ">
+
+              <span className="text-gray-800 font-bold"> ສະຫຼຸບ </span>
+              <div className="flex flex-row justify-between mt-3">
+                <div className="flex items-center">
+                  <span className="text-gray-500 font-normal mr-1"> ຈຳນວນວິຊາ:   </span>
+                  <span className="text-gray-500 font-normal"> {certificate.length}  </span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-gray-500 font-normal mr-1"> ໜ່ວຍກິດສະສົມ:</span>
+                  <span className="text-gray-500 font-normal"> {cerfiticatecreditSum()} </span>
+                </div>
+                <div className="flex  items-center">
+                  <span className="text-gray-500 font-normal mr-1"> GPA: </span>
+                  <span className="text-gray-500 font-normal"> 2.1 </span>
+                </div>
+
+              </div>
+            </div>
           </div>
 
         ) :
